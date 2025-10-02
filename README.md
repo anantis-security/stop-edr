@@ -69,6 +69,14 @@ This implementation serves as a learning resource for understanding:
 - Requires administrator privileges
 - Only works on Windows systems
 
+### EDR Process Creation Hooks
+
+Some advanced EDR solutions implement hooks on process creation APIs that prevent new process execution until the EDR validates the process. In these specific cases, it may not be possible to create new processes while the antivirus is stopped.
+
+However, this limitation does not prevent an attacker from executing malicious payloads. 
+
+An attacker could still launch ransomware or other malicious payloads from a thread within the stop_edr process itself, or inject into any other running process on the system using well-known injection techniques.
+
 ## Responsible Usage
 
 This tool is intended for:

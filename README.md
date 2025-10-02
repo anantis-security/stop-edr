@@ -4,11 +4,11 @@
 
 **This tool is provided as-is without any warranties. Users are responsible for any consequences of using this tool. Always test in a controlled environment first and ensure you have a way to recover access if needed.**
 
-**WARNING: This tool can potentially crash your computer or make it unresponsive. Use at your own risk.**
+**WARNING: It can potentially crash your computer or make it unresponsive. Use at your own risk.**
 
 ## Description
 
-This tool temporarily suspends Windows processes by leveraging WerFaultSecure.exe to create a controlled suspension state. The technique works by:
+StopEDR temporarily suspends Windows processes by leveraging WerFaultSecure.exe to create a controlled suspension state. The technique works by:
 
 1. Creating a Protected Process Light (PPL) WerFaultSecure.exe process
 2. WerFaultSecure automatically suspends the target process for debugging purposes
@@ -19,7 +19,7 @@ This tool temporarily suspends Windows processes by leveraging WerFaultSecure.ex
 
 ### Technical Overview
 
-This tool exploits Windows' error reporting mechanism:
+StopEDR exploits Windows' error reporting mechanism:
 
 1. **Privilege Escalation**: Enables SeDebugPrivilege using RtlAdjustPrivilege
 2. **Thread Discovery**: Locates the primary thread of the target process
@@ -34,10 +34,10 @@ This tool exploits Windows' error reporting mechanism:
 
 ```bash
 # Suspend process with PID 1234 for 10 seconds (10000ms)
-stop_edr --pid 1234 --sleep-ms 10000
+stop_edr.exe --pid 1234 --sleep-ms 10000
 
 # Suspend process with PID 5678 for 30 seconds
-stop_edr -p 5678 -s 30000
+stop_edr.exe -p 5678 -s 30000
 ```
 
 ### Parameters

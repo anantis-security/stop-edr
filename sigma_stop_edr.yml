@@ -1,0 +1,33 @@
+title: Suspicious Process Access to WerFaultSecure.exe
+id: 7b2e8f1a-4c9d-3e6f-8a5b-1d7c9eef2a8b
+status: experimental
+description: Detects suspicious process access to WerFaultSecure.exe indicating potential StopEDR attack
+author: Anantis
+date: 02.10.2025
+references:
+    - https://github.com/anantis-security/mute-edr
+tags:
+    - attack.defense_evasion
+    - attack.t1562
+logsource:
+    category: process_access
+    product: windows
+detection:
+    selection_target:
+        TargetImage|endswith: '\WerFaultSecure.exe'
+        GrantedAccess:
+            - '0x1000'    # PROCESS_SUSPEND_RESUME
+            - '0x1400'    # PROCESS_SUSPEND_RESUME | PROCESS_QUERY_INFORMATION
+            - '0x1F0FFF'  # PROCESS_ALL_ACCESS
+    filter_legitimate:
+        SourceImage|startswith:
+            - 'C:\Windows\System32\'
+            - 'C:\Windows\SysWOW64\'
+        SourceImage|endswith:
+            - '\svchost.exe'
+            - '\services.exe'
+            - '\winlogon.exe'
+    condition: selection_target and not filter_legitimate
+falsepositives:
+    - Debugging tools used by administrators
+level: high
